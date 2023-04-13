@@ -32,11 +32,19 @@ public class TodoController {
     }
     @PutMapping(value="/update/{id}")
     public String updateTask(@PathVariable long id, @RequestBody Task task){
+
         Task updatedTask = todoRepository.findById(id).get();
         updatedTask.setTitle(task.getTitle());
         updatedTask.setDescription(task.getDescription());
+
         todoRepository.save(updatedTask);
         return "Updated Task";
+    }
+    @DeleteMapping(value="delete/{id}")
+    public String deleteTask(@PathVariable long id){
+        Task delelteTask= todoRepository.findById(id).get();
+        todoRepository.delete(delelteTask);
+        return "deleted task";
     }
 
 }
